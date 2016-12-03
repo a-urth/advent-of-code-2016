@@ -8,14 +8,18 @@
 (defn row->ints [s]
   (map #(Integer. %) (str/split (str/trim s) #"\s+")))
 
+(defn prepare-data [s]
+  (map row->ints (str/split-lines s)))
+
 (defn main-1 [s]
   (count
-    (filter valid? (map  row->ints (str/split-lines s)))))
+    (filter valid? (prepare-data s))))
+
+(defn transpose [coll]
+  (apply map vector coll))
 
 (defn main-2 [s]
   (count
     (filter
       valid?
-      (mapcat
-        #(apply (partial map vector) (map row->ints %))
-        (partition 3 (str/split-lines s))))))
+      (mapcat transpose (partition 3 (prepare-data s))))))
