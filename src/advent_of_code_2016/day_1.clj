@@ -28,7 +28,7 @@
            coords (get-coords-delta new-direct n)]
        (lazy-seq (cons coords (walk (rest turns) new-direct)))))))
 
-(defn main [s]
+(defn main-1 [s]
   (apply
     +
     (map #(Math/abs %) (reduce #(map + %1 %2) (walk (str/split s #", "))))))
